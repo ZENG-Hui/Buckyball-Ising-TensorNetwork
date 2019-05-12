@@ -1,7 +1,7 @@
 """
 This is a python3.7 code to calculate the ground state energy of a
 Ising model of C60 using tensor network method
-copyright: Copyright 2018 by ZQW.
+copyright: Copyright 2019 by ZQW.
 license: MIT
 """
 
