@@ -1,3 +1,11 @@
+"""
+This is a triangle lattice of Ising model.
+Using tensor network method to get the partition, ground state energy
+and degeneracy of ground state energy.
+In addition, also calculate the exact partition function.
+"""
+
+
 import numpy as np
 import torch
 from scipy import gradient
@@ -25,19 +33,9 @@ beta = 100
 def getZ(beta,mu=0):
     B = np.array([ [np.exp(-beta), np.exp(beta)],
                        [np.exp(beta), np.exp(-beta)] ])
-
-    
-#    B = torch.tensor(sqrtm(B))
-#    A1 = B@B
     B = B*np.exp(beta*mu)
     A1 = torch.tensor(B)
 
-    A2 = A1
-    A3 = A1
-
-#    Z1 = torch.einsum('ij,jk->ik', A1, A2)
-#    Z =  torch.einsum('ij,jk->ik', Z1, A3)
-#    Z = torch.einsum("ii->",Z)
     Z = torch.einsum('ij,jk,ki->',A1,A1,A1)
     Z = Z.numpy()
     return Z
@@ -58,7 +56,6 @@ print('E0 = ',E0)
 
 
 mu = -1/3
-print('mu=',mu)
 # whe mu is equal to groud state energy E0/number of interaction
 def Deg(beta,mu=mu):
     Deg = getZ(beta,mu=mu)
@@ -66,9 +63,8 @@ def Deg(beta,mu=mu):
 
 print('degeneracy is',Deg(beta))
 
-
 ZZ = (2*np.exp(-3*beta) + 6*np.exp(beta) )#*np.exp(-100)
-print('ZZ=', ZZ)
+print('exact partition function is', ZZ)
 
 
 

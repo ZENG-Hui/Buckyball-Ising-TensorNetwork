@@ -1,3 +1,6 @@
+"""
+This is an example of automatic differentiation
+"""
 import numpy as np
 import torch
 from scipy.linalg import sqrtm
@@ -6,7 +9,7 @@ x = Variable( torch.tensor([.8]), requires_grad=True )
 print(x)
 
 def f(x):
-    f = x.exp()
+    f = x**2
     return f
 
 z = f(x)
